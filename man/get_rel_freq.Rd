@@ -14,10 +14,8 @@ get_rel_freq(quota, location = name, freq_raw = value)
 \item{freq_raw}{numeric}
 }
 \value{
-
+A tibble with relative frequencies for the gender-age combinations for each location.
 }
 \description{
-This function takes a quota tibble or dataframe as its input and returns a tibble as its output.
-The function assumes that one column, the "location" column, includes the location of your quota, e.g. a country, county, or city. This can also just be a single value for all rows.
-The freq_raw argument encodes the raw number of people.
+This function takes a quota tibble or dataframe as its input and returns a tibble as its output. The function assumes that one column, the "location" column, includes the location of your quota, e.g. a country, county, or city. This can also just be a single value for all rows. The freq_raw argument encodes the raw number of people.
 }

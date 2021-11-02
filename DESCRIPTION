@@ -1,5 +1,5 @@
 Package: FBSamplR
-Title: An R Package to Facilitate Quota Sampling Using Qualtrics and Facebook Ads.
+Title: An R Package to Facilitate Quota Sampling Using Qualtrics and Facebook Ads
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Ingmar",
