@@ -1,4 +1,4 @@
-create_survey <- function(name = "My new Survey", headers, ){
+qual_create_survey <- function(name = "My new Survey", headers){
   survey <- httr::VERB("POST",
                        paste0(base_url, "API/v3/survey-definitions"),
                        add_headers(headers),

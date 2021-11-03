@@ -1,4 +1,4 @@
-delete_response <- function(surveyID,
+qual_delete_response <- function(surveyID,
                             responseID,
                             headers){
   url <- paste0(base_url, "/", surveyID, "/responses/", responseID)

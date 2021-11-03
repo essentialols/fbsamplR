@@ -1,4 +1,4 @@
-create_response <- function(surveyID,
+qual_create_response <- function(surveyID,
                             headers,
                             startDate = "2021-10-07T00:00:00Z",
                             endDate = "2021-10-07T00:00:00Z",
