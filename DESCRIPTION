@@ -22,4 +22,5 @@ Depends:
     dplyr,
     httr,
     qualtRics,
-    tidyr
+    tidyr,
+    stringr
