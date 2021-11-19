@@ -1,0 +1,10 @@
+# Pause ad campaign
+
+fb_pause_campaign <- function(access_token,
+                           campaign_id){
+  url <- paste0("https://graph.facebook.com/v12.0/", campaign_id)
+  form_content <- list(status = "PAUSED",
+                       access_token = access_token)
+  response <- POST(url, body = form_content)
+  return(response)
+}
