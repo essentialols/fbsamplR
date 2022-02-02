@@ -5,8 +5,7 @@ Authors@R:
     person(given = "Ingmar",
            family = "Sturm",
            role = c("aut", "cre"),
-           email = "me@ingmarsturm.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "me@ingmarsturm.com")
 Description: An R Package to Facilitate Quota Sampling Using Qualtrics and Facebook Ads.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -20,7 +19,8 @@ Imports:
 Depends: 
     R (>= 2.10),
     dplyr,
+    tibble,
+    tidyr,
     httr,
     qualtRics,
-    tidyr,
     stringr
