@@ -19,7 +19,7 @@ split_quota_age <- function(quota, age_variable = age){
     mutate(age_bounds  = strsplit(as.character(!!age_variable), "\\-|\\+")) %>%
     unnest_wider(age_bounds) %>%
     suppressMessages() %>%
-    rename(age_group = !!age_variable, "lower" = ...1, "upper"=...2) %>%
+    rename(age_bracket = !!age_variable, "lower" = ...1, "upper"=...2) %>%
     mutate(lower = as.numeric(lower),
            upper = as.numeric(str_replace_na(upper, Inf)))
   return(new_quota)
