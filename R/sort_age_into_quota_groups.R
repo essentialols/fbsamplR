@@ -1,20 +1,26 @@
 #' Sort Age into Quota Groups
 #'
-#' This function takes a user-supplied integer (age) and sorts it into the groups of the provided quota. This can be helpful if the quota aggregates the respondents' ages into age groups.
-#' @param age A respondent's age of type integer which is to be placed into a user-supplied age group.
-#' @param age_brackets A dataframe with the following columns: age_group (character or factor), lower (numeric), and upper (numeric)
+#' Takes an integer age and matches it to the appropriate age bracket in a
+#' quota data frame. Useful when census quotas use age ranges rather than
+#' individual ages.
 #'
-#' @return Returns an age bracket. If age argument is NA, the function returns NA of type character. #???? not sure that's what it does
+#' @param age A respondent's age (integer).
+#' @param age_brackets A data frame with columns `age_group` (character),
+#'   `lower` (numeric), and `upper` (numeric). Can be generated using
+#'   [split_quota_age()].
 #'
-#' @keywords quota cleaning categorization
+#' @return The matching age group label as a character string, or
+#'   `NA_character_` if no bracket matches.
 #' @export
+#'
 #' @examples
-#' sort_age_into_quota_groups(20, quota = us_quota) ### This might be the wrong quota
-
-sort_age_into_quota_groups <- function(age, age_brackets){
-  # quota <- distinct(quota, age, .keep_all = T)
+#' \dontrun{
+#' brackets <- split_quota_age(us_quota, age_group)
+#' sort_age_into_quota_groups(25, brackets)
+#' }
+sort_age_into_quota_groups <- function(age, age_brackets) {
   age_in_age_group <- age_brackets[which(age >= age_brackets$lower & age <= age_brackets$upper), 1]
-  age_in_age_group <- as.character(pull(age_in_age_group, 1))
+  age_in_age_group <- as.character(dplyr::pull(age_in_age_group, 1))
   age_in_age_group <- ifelse(length(age_in_age_group) == 0, NA_character_, age_in_age_group)
-  return(age_in_age_group) # age bracket
+  return(age_in_age_group)
 }

@@ -1,26 +1,29 @@
 Package: fbsamplR
-Title: fbsamplR
-Version: 0.0.0.9000
-Authors@R: 
+Title: Facilitate Quota Sampling Using Qualtrics and Facebook Ads
+Version: 0.1.0
+Authors@R:
     person(given = "Ingmar",
            family = "Sturm",
            role = c("aut", "cre"),
            email = "me@ingmarsturm.com")
-Description: An R Package to Facilitate Quota Sampling Using Qualtrics and Facebook Ads.
+Description: An R package that integrates the Facebook Marketing API and the
+    Qualtrics API to automate quota-based survey sampling. Provides functions
+    to manage Facebook ad campaigns and ad sets, create and manage Qualtrics
+    surveys, compute quota-based sampling targets from census data, and
+    conditionally activate or pause ads based on real-time survey responses.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Imports: 
+Depends:
+    R (>= 3.5.0)
+Imports:
     dplyr,
     httr,
-    qualtRics
-Depends: 
-    R (>= 2.10),
-    dplyr,
-    tibble,
-    tidyr,
-    httr,
+    jsonlite,
     qualtRics,
-    stringr
+    rlang,
+    stringr,
+    tibble,
+    tidyr

@@ -1,3 +1,5 @@
-^FBSamplR\.Rproj$
+^fbsamplR\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^data-raw$
+^\.github$

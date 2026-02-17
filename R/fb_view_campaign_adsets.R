@@ -1,74 +1,62 @@
-#' View campaign adsets
+#' View Campaign Ad Sets
 #'
-#' This function looks up all adsets associated with a campaign and returns them as a tibble.
+#' Retrieves all ad sets associated with a Facebook campaign and returns them
+#' as a tibble. Handles pagination automatically.
 #'
-#' @return Returns a tibble of variable dimensions, whereas rows are adsets and columns are id, name, age_max, age_min, genders, countries (and regions if so specified), configured_status, and effective_status.
+#' @param campaign_id The Facebook campaign ID.
+#' @param access_token Facebook API access token.
 #'
-#' @keywords facebook ad-sets
+#' @return A tibble where rows are ad sets and columns include `adset_id`,
+#'   `name`, targeting fields, `configured_status`, and `effective_status`.
+#'   If the API request fails, returns the raw `httr` response.
 #' @export
+#'
 #' @examples
+#' \dontrun{
 #' fb_view_campaign_adsets(campaign_id = "123456789",
-#'                         access_token = "123456789")
-
+#'                         access_token = "your_token")
+#' }
 fb_view_campaign_adsets <- function(campaign_id,
-                                 access_token){
-  url <- paste0("https://graph.facebook.com/v12.0/",
-                campaign_id, "/adsets?fields=id,name,targeting,configured_status,effective_status&access_token=", access_token)
-  response<- GET(url)
+                                   access_token) {
+  url <- paste0(
+    "https://graph.facebook.com/v12.0/",
+    campaign_id,
+    "/adsets?fields=id,name,targeting,configured_status,effective_status",
+    "&access_token=", access_token
+  )
+  response <- httr::GET(url)
 
-  print("before if statement")
-
-  if(length(names(response)) > 1 & response$status_code == 200 & is.data.frame(jsonlite::fromJSON(rawToChar(response$content))[[1]])) {
-
-    print("inside if statement")
-
-  apidata <- jsonlite::fromJSON(rawToChar(response$content))[[1]] %>%
-    jsonlite::flatten(recursive = T) %>%
-    unnest_wider(everything(), names_sep = ".")
-
-  next_url <- jsonlite::fromJSON(rawToChar(response$content))[[2]]
-
-  data <- list()
-  i <- 1
-
-  data[[i]] <- apidata
-  i <- i + 1
-
-  while(!is.null(next_url$`next`)) {
-    response<- GET(next_url$`next`)
+  if (length(names(response)) > 1 &&
+      response$status_code == 200 &&
+      is.data.frame(jsonlite::fromJSON(rawToChar(response$content))[[1]])) {
 
     apidata <- jsonlite::fromJSON(rawToChar(response$content))[[1]] %>%
-      jsonlite::flatten(recursive = T) %>%
-      unnest_wider(everything(), names_sep = ".")
+      jsonlite::flatten(recursive = TRUE) %>%
+      tidyr::unnest_wider(dplyr::everything(), names_sep = ".")
+
     next_url <- jsonlite::fromJSON(rawToChar(response$content))[[2]]
 
+    data <- list()
+    i <- 1
     data[[i]] <- apidata
     i <- i + 1
-  }
 
+    while (!is.null(next_url$`next`)) {
+      response <- httr::GET(next_url$`next`)
+      apidata <- jsonlite::fromJSON(rawToChar(response$content))[[1]] %>%
+        jsonlite::flatten(recursive = TRUE) %>%
+        tidyr::unnest_wider(dplyr::everything(), names_sep = ".")
+      next_url <- jsonlite::fromJSON(rawToChar(response$content))[[2]]
+      data[[i]] <- apidata
+      i <- i + 1
+    }
 
-  result <- bind_rows(tibble(campaign_id = campaign_id), data)
-  names(result) <- names(result) %>% str_remove("\\.\\d")
-  result <- as_tibble(result, .name_repair = make.unique) %>%
-    rename(adset_id = id)
-  return(result)
-}
-
-  # if(length(names(response)) <0) {
-  # response <- content(response) %>%
-  #   as_tibble_col() %>%
-  #   unnest_longer(value) %>%
-  #   unnest_wider(value) %>%
-  #   unnest_wider(targeting) %>%
-  #   unnest(genders) %>% unnest(genders) %>%
-  #   unnest_wider(geo_locations) %>% unnest(6) %>%
-  #   unnest_wider(6, names_sep = "_") %>%
-  #   mutate(genders = case_when(genders == 1 ~ "male", genders == 2 ~ "female", TRUE ~ "other")) %>%
-  #   dplyr::select(-location_types, -targeting_optimization,-brand_safety_content_filter_levels, -before, -after, -value_id) %>%
-  #   filter(if_any(everything(), ~ !is.na(.)))
-  # }
-
-  else {
-  return(response)
+    result <- dplyr::bind_rows(tibble::tibble(campaign_id = campaign_id), data)
+    names(result) <- names(result) %>% stringr::str_remove("\\.\\d")
+    result <- tibble::as_tibble(result, .name_repair = make.unique) %>%
+      dplyr::rename(adset_id = id)
+    return(result)
+  } else {
+    return(response)
   }
 }

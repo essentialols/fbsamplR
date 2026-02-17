@@ -1,20 +1,25 @@
-#' Get relative frequencies
+#' Get Relative Frequencies from a Quota
 #'
-#' This function takes a quota tibble or dataframe as its input and returns a tibble as its output. The function assumes that one column, the "location" column, includes the location of your quota, e.g. a country, county, or city. This can also just be a single value for all rows. The freq_raw argument encodes the raw number of people.
+#' Computes relative frequencies (proportions) from a quota data frame. Each
+#' row's population value is divided by the total to produce the share of the
+#' sample that cell should represent.
 #'
-#' @param quota dataframe or tibble
-#' @param location factor or character
-#' @param freq_raw numeric
+#' @param quota A data frame or tibble containing population counts.
+#' @param location Unquoted name of the location column. Defaults to `name`.
+#' @param freq_raw Unquoted name of the raw frequency/population column.
+#'   Defaults to `value`.
 #'
-#' @return A tibble with relative frequencies for the gender-age combinations for each location.
+#' @return The input tibble with an additional `rel_freq` column containing
+#'   relative frequencies.
 #' @export
 #'
 #' @examples
-
-get_rel_freq <- function(quota, location = name, freq_raw = value){
-  location <- rlang::ensym(location)
+#' \dontrun{
+#' get_rel_freq(us_quota, location = state, freq_raw = population)
+#' }
+get_rel_freq <- function(quota, location = name, freq_raw = value) {
   freq_raw <- rlang::ensym(freq_raw)
   quota_rel_freq <- quota %>%
-    mutate(rel_freq = !!freq_raw/sum(!!freq_raw))
+    dplyr::mutate(rel_freq = !!freq_raw / sum(!!freq_raw))
   return(quota_rel_freq)
 }
