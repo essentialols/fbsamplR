@@ -25,6 +25,20 @@ This closes the loop between ad spend and survey completion — no manual monito
 devtools::install_github("essentialols/fbsamplR")
 ```
 
+## Sampling Planner interoperability
+
+`fbsamplR` can import the shared `RecruitmentDesign v0.2` JSON produced by Sampling Planner. The import preserves sourced population targets separately from any deliberate field oversamples.
+
+```r
+design <- import_design("sampling-plan.json")
+design$quota_table
+
+# A read-only Sampling Planner JSON export URL also works:
+design <- import_design("https://.../export.json")
+```
+
+The imported object keeps the original design in `design$raw` so newer workflows can use the full shared contract without discarding provenance or warnings.
+
 ## Setup
 
 ```r
