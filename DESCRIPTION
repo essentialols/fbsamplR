@@ -1,6 +1,6 @@
 Package: fbsamplR
 Title: Facilitate Quota Sampling Using Qualtrics and Facebook Ads
-Version: 0.1.2
+Version: 0.1.3
 Authors@R:
     person(given = "Ingmar",
            family = "Sturm",

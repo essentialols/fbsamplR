@@ -39,6 +39,9 @@ design <- import_design("https://.../export.json")
 
 The imported object keeps the original design in `design$raw` so newer workflows can use the full shared contract without discarding provenance or warnings.
 
+The imported object also keeps **eligibility**, **benchmark population**, and **field composition** separate when the design provides them. Older v0.2 designs remain compatible: if those explicit fields are absent, `fbsamplR` derives the conservative default that eligibility matches the benchmark population and field composition is population targets plus any saved oversamples.
+
+
 ### Audit the achieved sample
 
 `audit_sample()` closes the first wanted → achieved loop without requiring Meta or Qualtrics. It compares **accepted respondents** with the saved population and field targets while keeping those concepts separate.
