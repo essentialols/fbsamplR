@@ -14,15 +14,35 @@ import_design <- function(x) {
   design <- read_recruitment_design(x)
   validate_recruitment_design(design)
 
+  quota_table <- recruitment_design_quota_table(design)
+  field_targets <- design$field_targets %||% list()
+  eligibility <- design$eligibility %||% list(
+    description = design$population$description %||% design$population$universe %||% "Unspecified",
+    criteria = list(),
+    source = "benchmark_population",
+    benchmark_relation = "same_as_benchmark"
+  )
+  field_composition <- design$field_composition %||% list(
+    mode = if (any(!is.na(quota_table$oversample_n) & quota_table$oversample_n > 0)) {
+      "population_targets_plus_deliberate_oversamples"
+    } else {
+      "population_targets"
+    },
+    population_target_variables = unique(quota_table$variable),
+    deliberate_field_targets = field_targets
+  )
+
   out <- list(
     schema_version = design$schema_version,
     project_id = design$project_id,
     project_name = design$project_name %||% design$project_id,
+    eligibility = eligibility,
     population = design$population,
+    field_composition = field_composition,
     sample = design$sample,
     study_goal = design$study_goal,
-    quota_table = recruitment_design_quota_table(design),
-    field_targets = design$field_targets %||% list(),
+    quota_table = quota_table,
+    field_targets = field_targets,
     warnings = design$warnings %||% list(),
     provenance = design$provenance,
     raw = design
@@ -47,7 +67,9 @@ design_quota_table <- function(design) {
 #' @export
 print.fbsamplr_design <- function(x, ...) {
   cat("<fbsamplr_design>", x$project_id, "\n")
-  if (!is.null(x$population$description)) cat("Population:", x$population$description, "\n")
+  if (!is.null(x$eligibility$description)) cat("Eligibility:", x$eligibility$description, "\n")
+  if (!is.null(x$population$description)) cat("Benchmark population:", x$population$description, "\n")
+  if (!is.null(x$field_composition$mode)) cat("Field composition:", x$field_composition$mode, "\n")
   if (!is.null(x$sample$n)) cat("n:", x$sample$n, "\n")
   cat("Quota rows:", nrow(x$quota_table), "\n")
   invisible(x)
