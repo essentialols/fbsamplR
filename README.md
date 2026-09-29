@@ -39,6 +39,32 @@ design <- import_design("https://.../export.json")
 
 The imported object keeps the original design in `design$raw` so newer workflows can use the full shared contract without discarding provenance or warnings.
 
+### Audit the achieved sample
+
+`audit_sample()` closes the first wanted → achieved loop without requiring Meta or Qualtrics. It compares **accepted respondents** with the saved population and field targets while keeping those concepts separate.
+
+For respondent-level data:
+
+```r
+audit <- audit_sample(
+  design,
+  responses,
+  variable_map = c(
+    age = "age_group",
+    sex = "sex",
+    race = "race",
+    ethnicity = "ethnicity"
+  ),
+  status_col = "sample_status",
+  accepted_values = "accepted"
+)
+
+audit$audit_table
+```
+
+For already-aggregated accepted counts, pass columns `variable`, `category`, and `achieved_n`. Missing counts remain unknown rather than becoming zero. Matching every quota does not by itself establish representativeness; weighting/inference remain separate.
+
+
 ## Setup
 
 ```r
