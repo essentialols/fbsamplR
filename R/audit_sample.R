@@ -110,7 +110,7 @@ audit_sample <- function(
     )
   }
 
-  normalize <- function(x) tolower(gsub("\\s+", " ", trimws(as.character(x))))
+  normalize <- function(x) tolower(gsub("[[:space:]]+", " ", trimws(as.character(x))))
   counts$key <- paste(normalize(counts$variable), normalize(counts$category), sep = "\r")
   if (anyDuplicated(counts$key)) {
     dup <- counts[duplicated(counts$key) | duplicated(counts$key, fromLast = TRUE), c("variable", "category"), drop = FALSE]
