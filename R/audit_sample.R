@@ -30,6 +30,7 @@ audit_sample <- function(
   accepted_values = "accepted",
   accepted_n = NULL
 ) {
+  if (inherits(achieved, "fbsamplr_ledger")) return(audit_ledger(design, achieved))
   if (!inherits(design, "fbsamplr_design")) design <- import_design(design)
   if (!is.data.frame(achieved)) {
     stop("`achieved` must be a data frame.", call. = FALSE)
