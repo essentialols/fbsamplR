@@ -7,9 +7,10 @@
 \format{
 A data frame with columns:
 \describe{
-\item{age_group}{Age range as a character string (e.g., \code{"0-4"})}
-\item{sex}{Gender (\code{"male"} or \code{"female"})}
-\item{population}{Population count}
+\item{name}{Country name (\code{"Germany"})}
+\item{age}{Age range as a character string (e.g., \code{"0-4"})}
+\item{gender}{Gender (\code{"male"} or \code{"female"})}
+\item{value}{Population count in thousands}
 }
 }
 \usage{
