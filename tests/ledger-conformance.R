@@ -2,10 +2,19 @@
 # Rscript tests/ledger-conformance.R
 library(fbsamplR)
 
-fixture <- jsonlite::fromJSON(
+# The shared JS/R fixture lives at the top level of the source repository and is
+# excluded from the built package, so this script is a no-op under R CMD check.
+fixture_candidates <- c(
   file.path("fixtures", "sample-ledger-conformance-v0.1.json"),
-  simplifyVector = FALSE
+  file.path("..", "fixtures", "sample-ledger-conformance-v0.1.json")
 )
+fixture_path <- fixture_candidates[file.exists(fixture_candidates)][1]
+if (is.na(fixture_path)) {
+  cat("SampleLedger JS/R shared fixture not available here; skipping.\n")
+  q(save = "no", status = 0L)
+}
+
+fixture <- jsonlite::fromJSON(fixture_path, simplifyVector = FALSE)
 design <- import_design(fixture$design)
 ledger <- import_sample_ledger(fixture$ledger)
 stopifnot(inherits(ledger, "fbsamplr_ledger"))
