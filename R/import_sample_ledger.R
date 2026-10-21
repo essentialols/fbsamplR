@@ -28,7 +28,7 @@ import_sample_ledger <- function(x) {
   states <- c("observed", "missing", "refused", "unmapped", "invalid", "out_of_scope", "unmatched")
   actors <- c("researcher", "system", "import", "provider", "api", "unknown")
   seen_ids <- character()
-  seen_source_ids <- character()
+  seen_source_ids <- list()
 
   for (entry in ledger$entries) {
     if (!is.list(entry) || !is.character(entry$entry_id) || length(entry$entry_id) != 1L ||
@@ -65,8 +65,11 @@ import_sample_ledger <- function(x) {
         stop("Every source reference needs source, kind, and id.", call. = FALSE)
       }
       composite <- paste(ref$source, ref$kind, ref$id, sep = "\u001f")
-      if (composite %in% seen_source_ids) stop("A source identifier maps to multiple entries.", call. = FALSE)
-      seen_source_ids <- c(seen_source_ids, composite)
+      existing_owner <- seen_source_ids[[composite]]
+      if (!is.null(existing_owner) && !identical(existing_owner, entry$entry_id)) {
+        stop("A source identifier maps to multiple entries.", call. = FALSE)
+      }
+      seen_source_ids[[composite]] <- entry$entry_id
     }
 
     history <- entry$status_history
