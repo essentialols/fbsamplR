@@ -20,8 +20,9 @@
 #'
 #' @format A data frame with columns:
 #' \describe{
-#'   \item{age_group}{Age range as a character string (e.g., `"0-4"`)}
-#'   \item{sex}{Gender (`"male"` or `"female"`)}
-#'   \item{population}{Population count}
+#'   \item{name}{Country name (`"Germany"`)}
+#'   \item{age}{Age range as a character string (e.g., `"0-4"`)}
+#'   \item{gender}{Gender (`"male"` or `"female"`)}
+#'   \item{value}{Population count in thousands}
 #' }
 "germany_quota"

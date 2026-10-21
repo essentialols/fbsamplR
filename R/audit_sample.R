@@ -30,6 +30,7 @@ audit_sample <- function(
   accepted_values = "accepted",
   accepted_n = NULL
 ) {
+  if (inherits(achieved, "fbsamplr_ledger")) return(audit_ledger(design, achieved))
   if (!inherits(design, "fbsamplr_design")) design <- import_design(design)
   if (!is.data.frame(achieved)) {
     stop("`achieved` must be a data frame.", call. = FALSE)
@@ -215,9 +216,9 @@ print.fbsamplr_audit <- function(x, ...) {
   if (!is.na(x$accepted_n)) cat("Accepted n:", x$accepted_n, "\n")
   cat(
     "Cells: short", x$summary$short_field_cells,
-    "· met", x$summary$met_field_cells,
-    "· over", x$summary$over_field_cells,
-    "· unknown", x$summary$unknown_cells, "\n"
+    "\u00b7 met", x$summary$met_field_cells,
+    "\u00b7 over", x$summary$over_field_cells,
+    "\u00b7 unknown", x$summary$unknown_cells, "\n"
   )
   invisible(x)
 }

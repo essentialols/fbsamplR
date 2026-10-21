@@ -1,0 +1,390 @@
+{
+  "fixture_version": 1,
+  "description": "Shared JS/R contract fixture with accepted, rejected, provisional, missing, unmatched, multi-value, and reclassified entries.",
+  "design": {
+    "schema_version": "0.2",
+    "project_id": "sp_fixture0001",
+    "project_name": "JS R SampleLedger conformance",
+    "eligibility": {
+      "description": "Test adults",
+      "criteria": [],
+      "source": "benchmark_population",
+      "benchmark_relation": "same_as_benchmark"
+    },
+    "population": {
+      "role": "benchmark_population",
+      "country": "OTHER",
+      "description": "Test adults",
+      "universe": "Test adults",
+      "geography": "national",
+      "data_origin": "user_supplied_unverified"
+    },
+    "field_composition": {
+      "mode": "population_targets_plus_deliberate_oversamples",
+      "population_target_variables": [
+        "sex",
+        "race",
+        "language"
+      ],
+      "deliberate_field_targets": []
+    },
+    "sample": {
+      "n": 10
+    },
+    "study_goal": {
+      "type": "descriptive"
+    },
+    "warnings": [],
+    "provenance": [],
+    "targets": [
+      {
+        "variable": "sex",
+        "categories": [
+          {
+            "label": "Male",
+            "target": 5,
+            "share": 0.5,
+            "population": 50
+          },
+          {
+            "label": "Female",
+            "target": 5,
+            "share": 0.5,
+            "population": 50
+          }
+        ]
+      },
+      {
+        "variable": "race",
+        "categories": [
+          {
+            "label": "Asian alone",
+            "target": 2,
+            "share": 0.2,
+            "population": 20
+          },
+          {
+            "label": "Other",
+            "target": 8,
+            "share": 0.8,
+            "population": 80
+          }
+        ]
+      },
+      {
+        "variable": "language",
+        "categories": [
+          {
+            "label": "English",
+            "target": 7,
+            "share": 0.7,
+            "population": 70
+          },
+          {
+            "label": "German",
+            "target": 3,
+            "share": 0.3,
+            "population": 30
+          }
+        ]
+      }
+    ],
+    "field_targets": [
+      {
+        "variable": "race",
+        "category": "Asian alone",
+        "population_target_n": 2,
+        "field_target_n": 4,
+        "oversample_n": 2,
+        "basis": {
+          "type": "subgroup_precision_reference"
+        }
+      }
+    ]
+  },
+  "ledger": {
+    "ledger_version": "0.1",
+    "project_id": "sp_fixture0001",
+    "ledger_revision": 6,
+    "updated_at": "2026-10-21T12:00:00.000Z",
+    "entries": [
+      {
+        "entry_id": "slu_fixture0001",
+        "status": "accepted",
+        "attributes": {
+          "sex": {
+            "state": "observed",
+            "value": "Male"
+          },
+          "race": {
+            "state": "observed",
+            "value": "Asian alone"
+          },
+          "language": {
+            "state": "observed",
+            "value": [
+              "English",
+              "German",
+              "English"
+            ]
+          }
+        },
+        "source_refs": [
+          {
+            "source": "researcher_file",
+            "kind": "import_row_id",
+            "id": "test-1"
+          }
+        ],
+        "status_history": [
+          {
+            "at": "2026-10-21T12:00:00.000Z",
+            "from": null,
+            "to": "accepted",
+            "actor": {
+              "type": "researcher",
+              "id": "fixture"
+            },
+            "reason_code": "fixture_classification"
+          }
+        ],
+        "created_at": "2026-10-21T12:00:00.000Z",
+        "updated_at": "2026-10-21T12:00:00.000Z"
+      },
+      {
+        "entry_id": "slu_fixture0002",
+        "status": "accepted",
+        "attributes": {
+          "sex": {
+            "state": "observed",
+            "value": "Female"
+          },
+          "race": {
+            "state": "missing",
+            "raw_value": null
+          },
+          "language": {
+            "state": "observed",
+            "value": "English"
+          }
+        },
+        "source_refs": [
+          {
+            "source": "researcher_file",
+            "kind": "import_row_id",
+            "id": "test-2"
+          }
+        ],
+        "status_history": [
+          {
+            "at": "2026-10-21T12:00:00.000Z",
+            "from": null,
+            "to": "accepted",
+            "actor": {
+              "type": "researcher",
+              "id": "fixture"
+            },
+            "reason_code": "fixture_classification"
+          }
+        ],
+        "created_at": "2026-10-21T12:00:00.000Z",
+        "updated_at": "2026-10-21T12:00:00.000Z"
+      },
+      {
+        "entry_id": "slu_fixture0003",
+        "status": "rejected",
+        "attributes": {
+          "sex": {
+            "state": "observed",
+            "value": "Male"
+          },
+          "race": {
+            "state": "observed",
+            "value": "Other"
+          },
+          "language": {
+            "state": "observed",
+            "value": "English"
+          }
+        },
+        "source_refs": [
+          {
+            "source": "researcher_file",
+            "kind": "import_row_id",
+            "id": "test-3"
+          }
+        ],
+        "status_history": [
+          {
+            "at": "2026-10-21T12:00:00.000Z",
+            "from": null,
+            "to": "accepted",
+            "actor": {
+              "type": "researcher",
+              "id": "fixture"
+            },
+            "reason_code": "initial_accept"
+          },
+          {
+            "at": "2026-10-21T12:00:00.000Z",
+            "from": "accepted",
+            "to": "rejected",
+            "actor": {
+              "type": "researcher",
+              "id": "fixture"
+            },
+            "reason_code": "failed_quality"
+          }
+        ],
+        "created_at": "2026-10-21T12:00:00.000Z",
+        "updated_at": "2026-10-21T12:00:00.000Z"
+      },
+      {
+        "entry_id": "slu_fixture0004",
+        "status": "accepted",
+        "attributes": {
+          "sex": {
+            "state": "observed",
+            "value": "Male"
+          },
+          "race": {
+            "state": "observed",
+            "value": "Unexpected"
+          },
+          "language": {
+            "state": "observed",
+            "value": "French"
+          }
+        },
+        "source_refs": [
+          {
+            "source": "researcher_file",
+            "kind": "import_row_id",
+            "id": "test-4"
+          }
+        ],
+        "status_history": [
+          {
+            "at": "2026-10-21T12:00:00.000Z",
+            "from": null,
+            "to": "accepted",
+            "actor": {
+              "type": "researcher",
+              "id": "fixture"
+            },
+            "reason_code": "fixture_classification"
+          }
+        ],
+        "created_at": "2026-10-21T12:00:00.000Z",
+        "updated_at": "2026-10-21T12:00:00.000Z"
+      },
+      {
+        "entry_id": "slu_fixture0005",
+        "status": "provisional",
+        "attributes": {
+          "sex": {
+            "state": "observed",
+            "value": "Female"
+          },
+          "race": {
+            "state": "observed",
+            "value": "Other"
+          },
+          "language": {
+            "state": "observed",
+            "value": "German"
+          }
+        },
+        "source_refs": [
+          {
+            "source": "researcher_file",
+            "kind": "import_row_id",
+            "id": "test-5"
+          }
+        ],
+        "status_history": [
+          {
+            "at": "2026-10-21T12:00:00.000Z",
+            "from": null,
+            "to": "provisional",
+            "actor": {
+              "type": "researcher",
+              "id": "fixture"
+            },
+            "reason_code": "fixture_classification"
+          }
+        ],
+        "created_at": "2026-10-21T12:00:00.000Z",
+        "updated_at": "2026-10-21T12:00:00.000Z"
+      }
+    ]
+  },
+  "expected": {
+    "accepted_n": 3,
+    "achieved_counts": [
+      {
+        "variable": "sex",
+        "category": "Male",
+        "achieved_n": 2
+      },
+      {
+        "variable": "sex",
+        "category": "Female",
+        "achieved_n": 1
+      },
+      {
+        "variable": "race",
+        "category": "Asian alone",
+        "achieved_n": 1
+      },
+      {
+        "variable": "race",
+        "category": "Other",
+        "achieved_n": 0
+      },
+      {
+        "variable": "language",
+        "category": "English",
+        "achieved_n": 2
+      },
+      {
+        "variable": "language",
+        "category": "German",
+        "achieved_n": 1
+      }
+    ],
+    "unknown_membership_by_variable": {
+      "sex": 0,
+      "race": 1,
+      "language": 0
+    },
+    "unmatched_counts": [
+      {
+        "variable": "race",
+        "category": "Unexpected",
+        "achieved_n": 1
+      },
+      {
+        "variable": "language",
+        "category": "French",
+        "achieved_n": 1
+      }
+    ],
+    "after_rejecting_fixture_2": {
+      "accepted_n": 2,
+      "achieved_counts": [
+        2,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "unknown_membership_by_variable": {
+        "sex": 0,
+        "race": 0,
+        "language": 0
+      }
+    }
+  }
+}
