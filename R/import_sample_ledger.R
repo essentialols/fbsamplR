@@ -223,7 +223,7 @@ audit_ledger <- function(design, ledger) {
 #' @export
 print.fbsamplr_ledger <- function(x, ...) {
   cat("<fbsamplr_ledger>", x$project_id, "\n")
-  cat("Revision:", x$ledger_revision, "· entries:", length(x$entries),
-      "· accepted:", length(ledger_accepted_entries(x)), "\n")
+  cat("Revision:", x$ledger_revision, "\u00b7 entries:", length(x$entries),
+      "\u00b7 accepted:", length(ledger_accepted_entries(x)), "\n")
   invisible(x)
 }

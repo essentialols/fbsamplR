@@ -216,9 +216,9 @@ print.fbsamplr_audit <- function(x, ...) {
   if (!is.na(x$accepted_n)) cat("Accepted n:", x$accepted_n, "\n")
   cat(
     "Cells: short", x$summary$short_field_cells,
-    "· met", x$summary$met_field_cells,
-    "· over", x$summary$over_field_cells,
-    "· unknown", x$summary$unknown_cells, "\n"
+    "\u00b7 met", x$summary$met_field_cells,
+    "\u00b7 over", x$summary$over_field_cells,
+    "\u00b7 unknown", x$summary$unknown_cells, "\n"
   )
   invisible(x)
 }
