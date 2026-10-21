@@ -68,6 +68,28 @@ audit$audit_table
 For already-aggregated accepted counts, pass columns `variable`, `category`, and `achieved_n`. Missing counts remain unknown rather than becoming zero. Matching every quota does not by itself establish representativeness; weighting/inference remain separate.
 
 
+## SampleLedger interoperability (v0.1.4)
+
+Import the same respondent-level `SampleLedger v0.1` that the ChatGPT
+Sampling Planner stores; audit only explicitly accepted units while preserving
+unknown membership, unmatched observed categories, multi-value responses,
+source references, and transition history.
+
+```r
+library(fbsamplR)
+design <- import_design("sampling-plan.json")
+ledger <- import_sample_ledger("sample-ledger.json")
+accepted <- ledger_accepted_entries(ledger)
+audit <- audit_sample(design, ledger)
+audit$audit_table
+audit$unknown_membership_by_variable
+audit$unmatched_counts
+```
+
+See [docs/LEDGER_INTEROP.md](docs/LEDGER_INTEROP.md) for cross-language
+fixtures, R test commands, and current boundaries. A ledger is **not**
+required for existing respondent-data or aggregated-count audits.
+
 ## Setup
 
 ```r
