@@ -18,6 +18,10 @@ fbsamplR automates this entire pipeline:
 
 This closes the loop between ad spend and survey completion — no manual monitoring required.
 
+## Status
+
+The Facebook wrappers call Marketing API **v12.0** endpoints (hard-coded in `R/fb_*.R`) and have not been migrated or tested against current Meta API versions. Check your account and API version before running anything that spends money; see [docs/META_MARKETING_API_V26_ASSESSMENT.md](docs/META_MARKETING_API_V26_ASSESSMENT.md) for what is and is not verified. The design import and sample-audit functions do not call Meta or Qualtrics.
+
 ## Installation
 
 ```r
@@ -201,7 +205,9 @@ fb_conditionally_enable_disable_adset(comparison_row, access_token = "token")
 | Dataset | Description |
 |---|---|
 | `us_quota` | US population by state, age group, and sex (2019 Census) |
-| `germany_quota` | Germany population by age group and sex |
+| `germany_quota` | Germany population by age group and sex (values in thousands) |
+
+The US table was prepared from US Census Bureau 2019 population estimates; see `data-raw/us_quota.R`. The source of the Germany table is not recorded in this repository.
 
 ## Background
 
@@ -209,4 +215,4 @@ This package was developed as part of a research project that ran quota-based su
 
 ## License
 
-MIT
+MIT, see [LICENSE.md](LICENSE.md).

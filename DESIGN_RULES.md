@@ -264,7 +264,7 @@ Research analogies are evidence, not specifications. Product/domain invariants w
 
 ---
 
-## How agents should use this
+## How to use this file
 
 Before changing a shared model, provider-neutral behavior, or fbsamplR interoperability:
 

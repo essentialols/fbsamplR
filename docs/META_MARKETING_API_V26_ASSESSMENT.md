@@ -1,9 +1,9 @@
 # Meta Marketing API v26: fbsamplR inventory and verification backlog
-*Documentation-only assessment · 2026-10-21 · No application code, provider calls, tokens, or deployments modified.*
+*Documentation-only assessment, written 2026-10-21. It does not change application code.*
 
 ## Evidence standard — read this first
 
-**Meta platform-specific claims below are UNVERIFIED pending direct access to first-party `developers.facebook.com` pages.** On October 21, 2026, this research environment could not fetch the [candidate v26 changelog](https://developers.facebook.com/docs/graph-api/changelog/version26.0/) or [candidate release announcement](https://developers.facebook.com/blog/post/2026/07/29/introducing-graph-api-v26-and-marketing-api-v26/); direct requests failed or returned HTTP 429. Search surfaced text from a **third-party mirror**, which is expressly *not an acceptable source* and is **not cited or relied upon as verification**.
+**Meta platform-specific claims below are UNVERIFIED pending direct access to first-party `developers.facebook.com` pages.** When this assessment was written, the official pages could not be fetched: the [candidate v26 changelog](https://developers.facebook.com/docs/graph-api/changelog/version26.0/) or [candidate release announcement](https://developers.facebook.com/blog/post/2026/07/29/introducing-graph-api-v26-and-marketing-api-v26/); direct requests failed or returned HTTP 429. Search surfaced text from a **third-party mirror**, which is expressly *not an acceptable source* and is **not cited or relied upon as verification**.
 
 Evidence labels in this document:
 - **REPO-CONFIRMED** means the statement follows from the current `essentialols/fbsamplR` source code. This proves our code behavior, not current Meta API compatibility.
@@ -20,7 +20,7 @@ The priority remains read-only credential and account preflight. The neutral Rec
 
 ## 1. Version and migration assertions requiring first-party proof
 
-These are **candidate claims to verify**, not verified findings. They were stated too confidently in the first draft:
+These are **candidate claims to verify**, not verified findings. They are stated here as hypotheses:
 
 | Claim | Verification status | Required first-party document |
 | --- | --- | --- |
@@ -30,11 +30,11 @@ These are **candidate claims to verify**, not verified findings. They were state
 | `v26` is currently the newest supported version | **UNVERIFIED META CLAIM** | [Current version list](https://developers.facebook.com/docs/graph-api/changelog/versions/) checked directly on the date of action |
 | "Ads Management Standard Access" was renamed to "Marketing API Access Tier" with Limited/Full tiers, distinct from the permission `ads_management` | **UNVERIFIED META CLAIM under this review's specified source rule** | [Meta App Features Reference](https://developers.facebook.com/docs/features-reference/) and currently maintained Marketing API permissions documentation |
 
-For each claim, a local agent should open the original `developers.facebook.com` page in a logged-in browser if necessary, capture the precise heading, publication/effective date, and passage/endpoint, then update the status to **VERIFIED — first party** only if the original content genuinely supports it. Do not quote or cite content fetched from mirrors or SEO clones.
+For each claim, a maintainer should open the original `developers.facebook.com` page in a logged-in browser if necessary, capture the precise heading, publication/effective date, and passage/endpoint, then update the status to **VERIFIED — first party** only if the original content genuinely supports it. Do not quote or cite content fetched from mirrors or SEO clones.
 
 ## 2. Reported v26 endpoint/field changes — ALL UNVERIFIED
 
-**None of the rows below was independently confirmed on `developers.facebook.com` in this run.** These are hypotheses for manual first-party comparison, not promises about the current API.
+**None of the rows below was independently confirmed on `developers.facebook.com` in this assessment.** These are hypotheses for manual first-party comparison, not promises about the current API.
 
 | Proposed change to verify | Status | Implication *if* the official changelog confirms it |
 | --- | --- | --- |
@@ -110,4 +110,4 @@ A future version of this document may describe Meta features as *verified* only 
 - The method distinguishes original Meta documentation from inference and actual repository source behavior.
 - For live functionality claims, documentation verification is **not** substituted for a controlled authorized live API test.
 
-**Result of this revision:** Every unretrievable v26/Marketing API platform assertion is expressly **UNVERIFIED**. The verified claims concern only source code in `essentialols/fbsamplR`. No third-party mirror is referenced as evidence. **This PR changes only this Markdown file.**
+**Result of this revision:** Every unretrievable v26/Marketing API platform assertion is expressly **UNVERIFIED**. The verified claims concern only source code in `essentialols/fbsamplR`. No third-party mirror is referenced as evidence.
